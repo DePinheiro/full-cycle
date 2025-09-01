@@ -1,0 +1,204 @@
+#
+# Arquivo .gitignore para o projeto
+# Este arquivo ignora arquivos e diretórios gerados automaticamente,
+# arquivos de cache, de logs, de build e específicos de ambiente de desenvolvimento.
+#
+# Gerado com base nas linguagens: C#, Go, Python, Java e ferramentas como Docker e Git.
+#
+
+# =========================================================================
+# Ignorados gerais (logs, temporários, e de sistema operacional)
+# =========================================================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.log
+*.tmp
+*.swp
+*.swo
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+.history/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.idea/
+.idea_modules/
+
+# =========================================================================
+# Ignorados para C# e Visual Studio
+# =========================================================================
+## Build and build-related directories
+[Bb]in/
+[Dd]ebug/
+[Oo]bj/
+[Rr]elease/
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+artifacts/
+publish/
+Generated\ Files/
+BenchmarkDotNet.Artifacts/
+
+## NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+## IDE-specific files (Visual Studio, Rider)
+*.rsuser
+*.pfx
+*.pidb
+*.vshistory/
+*.tss
+*.jmconfig
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+*.sln.iml
+.axoCover/
+!.axoCover/settings.json
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+.localhistory/
+MigrationBackup/
+FakesAssemblies/
+
+## Project files and configurations
+*.vspscc
+*.vssscc
+.builds
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.publishsettings
+*.pubxml
+*.azurePubxml
+*.publishproj
+PublishScripts/
+*.rptproj.rsuser
+*- [Bb]ackup.rdl
+*- [Bb]ackup ([0-9]).rdl
+*- [Bb]ackup ([0-9][0-9]).rdl
+DocProject/
+ClientBin/
+Generated_Code/
+
+## SQL Server and Database files
+*.mdf
+*.ldf
+*.ndf
+healthchecksdb
+
+## Test and coverage
+OpenCover/
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+
+# =========================================================================
+# Ignorados para Go
+# =========================================================================
+# Executables and build output
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go workspace
+bin/
+pkg/
+
+# Vendor
+vendor/
+
+# =========================================================================
+# Ignorados para Python
+# =========================================================================
+# Byte-code
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# IDE files
+.python-version
+.vscode/
+
+# Package management
+*.egg-info/
+.coverage
+.tox/
+dist/
+build/
+*.whl
+
+# =========================================================================
+# Ignorados para Java
+# (Adicionados em caso de uso futuro, conforme mencionado)
+# =========================================================================
+## Build artifacts
+*.jar
+*.war
+*.ear
+*.class
+*.ser
+*.lock
+*.zip
+target/
+build/
+
+## Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+/rebel.xml
+/bin/
+
+## Gradle
+.gradle/
+/build/
+
+## IDE and system files
+.project
+.classpath
+.settings/
+.idea/
+*.iws
+*.iml
+*.ipr
+.project.xml
+.springBeans
+
+# =========================================================================
+# Ignorados para Docker
+# =========================================================================
+*.pid
+*.seed
+*.pid.lock
+.env
+docker-compose.override.yml
