@@ -202,3 +202,22 @@ dependency-reduced-pom.xml
 *.pid.lock
 .env
 docker-compose.override.yml
+
+# =========================================================================
+# Ignorados para JavaScript / TypeScript
+# =========================================================================
+# Node / NPM
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.npmrc
+.pnpm-store/
+
+# Build
+dist/
+build/
+coverage/
+*.tsbuildinfo
