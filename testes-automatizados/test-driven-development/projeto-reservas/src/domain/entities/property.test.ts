@@ -1,3 +1,4 @@
+import { DateRange } from "../value_objects/date_range";
 import { Property } from "./property";
 
 describe("Property Entity", () => {
@@ -99,6 +100,32 @@ describe("Property Entity", () => {
     expect(() => {
       property.validateGuestCount(6)
     }).toThrow("ultrapassou numero maximo de hospedes, limite 5.");
+
+  });
+
+  it("nao deve aplica desconto para estadias menor que 7 noites", () => {
+    let idValid = "1";
+    let nameValid = "descricao";
+    let descriptionValid = "uma bela casa de paria";
+    let maxGuestsInvalid = 5;
+    let basePricePerNightValid = 200;
+
+    let property = new Property(
+      idValid,
+      nameValid,
+      descriptionValid,
+      maxGuestsInvalid,
+      basePricePerNightValid
+    );
+
+    let startDate = new Date("2024-12-10");
+    let endDate = new Date("2024-12-16");
+
+    let dateRange = new DateRange(startDate, endDate);
+
+    let totalPrice = property.calculateTotalPrice(dateRange);
+
+    expect(totalPrice).toBe(1200)
 
   });
 

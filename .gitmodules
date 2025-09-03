@@ -1,0 +1,3 @@
+[submodule "testes-automatizados/test-driven-development/material-base/fc4-tdd"]
+	path = testes-automatizados/test-driven-development/material-base/fc4-tdd
+	url = git@github.com:devfullcycle/fc4-tdd.git

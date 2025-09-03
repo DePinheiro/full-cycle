@@ -1,4 +1,5 @@
 import { transform } from "typescript";
+import { DateRange } from "../value_objects/date_range";
 
 export class Property {
   private readonly id: string;
@@ -53,5 +54,12 @@ export class Property {
     if (guestCount > this.maxGuests) {
       throw Error(`ultrapassou numero maximo de hospedes, limite ${this.maxGuests}.`);
     }
+  }
+
+  calculateTotalPrice(dateRange: DateRange): number {
+    let totalNights = dateRange.getTotalNights();
+    let totalValue = totalNights * this.basePricePerNight;
+    return totalValue;
+
   }
 }
