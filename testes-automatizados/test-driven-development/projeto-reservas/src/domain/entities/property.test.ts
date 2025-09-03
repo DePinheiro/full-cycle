@@ -123,11 +123,35 @@ describe("Property Entity", () => {
 
     let dateRange = new DateRange(startDate, endDate);
 
-    let totalPrice = property.calculateTotalPrice(dateRange);
+    let fullPriceWithoutDiscount = property.calculateTotalPrice(dateRange);
 
-    expect(totalPrice).toBe(1200)
+    expect(fullPriceWithoutDiscount).toBe(1200)
 
   });
 
+  it("deve aplica desconto de 7 noits ou mais", () => {
+    let idValid = "1";
+    let nameValid = "descricao";
+    let descriptionValid = "uma bela casa de paria";
+    let maxGuestsInvalid = 5;
+    let basePricePerNightValid = 100;
+
+    let property = new Property(
+      idValid,
+      nameValid,
+      descriptionValid,
+      maxGuestsInvalid,
+      basePricePerNightValid
+    );
+
+    let startDate = new Date("2024-12-10");
+    let endDate = new Date("2024-12-17");
+
+    let dateRange = new DateRange(startDate, endDate);
+
+    let fullPriceWithDiscount = property.calculateTotalPrice(dateRange);
+
+    expect(fullPriceWithDiscount).toBe(630) // 7 noites * 100 * 0.9 = 630
+  });
 
 });
