@@ -1,5 +1,6 @@
-import { transform } from "typescript";
+import { setCommentRange, transform } from "typescript";
 import { DateRange } from "../value_objects/date_range";
+import { Booking } from "./booking";
 
 export class Property {
   private readonly id: string;
@@ -7,6 +8,7 @@ export class Property {
   private readonly description: string;
   private readonly maxGuests: number;
   private readonly basePricePerNight: number;
+  private readonly bookings: Booking[] = [];
 
   constructor(
     id: string, name: string,
@@ -52,7 +54,7 @@ export class Property {
 
   validateGuestCount(guestCount: number): void {
     if (guestCount > this.maxGuests) {
-      throw Error(`ultrapassou numero maximo de hospedes, limite ${this.maxGuests}.`);
+      throw Error(`ultrapassou numero maximo de hospedes, limite: ${this.maxGuests}.`);
     }
   }
 
@@ -65,6 +67,22 @@ export class Property {
     }
 
     return totalValue;
+  }
 
+  isVailable(dateRange: DateRange): boolean {
+    return !this.bookings.some(
+      (booking) =>
+        booking.getStatus() === "CONFIRMADO" &&
+        booking.getDateRange().overLaps(dateRange)
+    );
+
+  }
+
+  addBooking(booking: Booking): void {
+    this.bookings.push(booking);
+  }
+
+  getBookings(): Booking[] {
+    return [...this.bookings];
   }
 }

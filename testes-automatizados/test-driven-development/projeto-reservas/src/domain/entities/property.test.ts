@@ -1,5 +1,8 @@
+import { escapeLeadingUnderscores } from "typescript";
 import { DateRange } from "../value_objects/date_range";
+import { Booking } from "./booking";
 import { Property } from "./property";
+import { User } from "./user";
 
 describe("Property Entity", () => {
   it("deve criar uma instancia Properties com todos os atributos", () => {
@@ -99,7 +102,7 @@ describe("Property Entity", () => {
 
     expect(() => {
       property.validateGuestCount(6)
-    }).toThrow("ultrapassou numero maximo de hospedes, limite 5.");
+    }).toThrow("ultrapassou numero maximo de hospedes, limite: 5");
 
   });
 
@@ -152,6 +155,36 @@ describe("Property Entity", () => {
     let fullPriceWithDiscount = property.calculateTotalPrice(dateRange);
 
     expect(fullPriceWithDiscount).toBe(630) // 7 noites * 100 * 0.9 = 630
+  });
+
+  it("deve verificar disponibilidade da propriedade", () => {
+    let idUserValid = "1";
+    let nameUserValid = "nome teste";
+
+    let idValid = "1";
+    let nameValid = "descricao";
+    let descriptionValid = "uma bela casa de paria";
+    let maxGuestsInvalid = 4;
+    let basePricePerNightValid = 200;
+
+    let property = new Property(idValid, nameValid, descriptionValid, maxGuestsInvalid, basePricePerNightValid);
+
+    let user = new User(idUserValid, nameUserValid);
+    let startDate1 = new Date("2024-12-20");
+    let endDate1 = new Date("2024-12-25");
+    let startDate2 = new Date("2024-12-20");
+    let endDate2 = new Date("2024-12-25");
+
+    let dateRange1 = new DateRange(startDate1, endDate1);
+    let dateRange2 = new DateRange(startDate2, endDate2);
+
+    new Booking("1", user, property, dateRange1, 2);
+
+
+    expect(property.isVailable(dateRange1)).toBe(false);
+    expect(property.isVailable(dateRange2)).toBe(false);
+
+
   });
 
 });
