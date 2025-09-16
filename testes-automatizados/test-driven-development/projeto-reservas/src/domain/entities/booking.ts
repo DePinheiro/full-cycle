@@ -8,7 +8,7 @@ export class Booking {
   private readonly property: Property;
   private readonly dateRange: DateRange;
   private readonly guestCounts: number;
-  private readonly Status: "CONFIRMADO" | "CANCELADO" = "CONFIRMADO";
+  private status: "CONFIRMADO" | "CANCELADO" = "CONFIRMADO";
   private totalPrice: number = 0;
 
   constructor(id: string, user: User, property: Property, dateRange: DateRange, guestCounts: number) {
@@ -53,11 +53,34 @@ export class Booking {
   }
 
   getStatus(): string {
-    return this.Status;
+    return this.status;
   }
 
   getTotalPrice(): number {
     return this.totalPrice;
+  }
+
+  cancel(currentDate: Date): void {
+    if (this.status === "CANCELADO") {
+      throw Error("reserva já foi cancelada")
+    }
+
+    this.status = "CANCELADO"
+
+
+    let checkInDate: Date = this.dateRange.getStartDate();
+
+    let diffTime = checkInDate.getTime() - currentDate.getTime()
+    let timeStampForOneDay = 1000 * 3600 * 24;
+    let dayUntilCheckin = Math.ceil(diffTime / timeStampForOneDay);
+
+    if (dayUntilCheckin > 7) {
+      this.totalPrice = 0;
+    } else if (dayUntilCheckin >= 1) {
+      this.totalPrice = this.totalPrice * 0.5;
+    }
+
+
   }
 
 }
