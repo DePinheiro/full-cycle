@@ -109,4 +109,41 @@ describe("Booking Entity", () => {
       }
     });
 
+  // ${"102"}    | ${"2"} | ${"Bruno"}| ${"p2"}    | ${"Apto"}    | ${"Vista para o mar"}    | ${7}      | ${250}    | ${"2025-02-01"} | ${"2025-02-03"} | ${7}    | ${2 * 250 * 0.9}
+  // ${"103"}    | ${"3"} | ${"Carla"}| ${"p3"}    | ${"Casa"}    | ${"Perfeito p/ família"} | ${8}      | ${500}    | ${"2025-03-20"} | ${"2025-03-22"} | ${7}    | ${2 * 500 * 0.9}
+  // ${"104"}    | ${"4"} | ${"João"} | ${"p4"}    | ${"Chalé"}   | ${"No meio do mato"}     | ${10}     | ${100}    | ${"2025-04-01"} | ${"2025-04-02"} | ${10}   | ${1 * 100 * 0.9}
+  // ${"105"}    | ${"2"} | ${"Bruno"}| ${"p2"}    | ${"Apto"}    | ${"Vista para o mar"}    | ${6}      | ${250}    | ${"2025-02-01"} | ${"2025-02-03"} | ${6}    | ${2 * 250 * 0.9}
+  it.each`
+    idBooking   | idUser | nameUser  | idProperty | nameProperty | description              | maxGuests | basePrice | startDate       | endDate         | guests  | discountedValue
+    ${"101"}    | ${"1"} | ${"Ana"}  | ${"p1"}    | ${"Cabana"}  | ${"Bem aconchegante"}    | ${5}      | ${150}    | ${"2025-01-10"} | ${"2025-01-20"} | ${5}    | ${10 * 150 * 0.9}
+  `('deve calcular o preco total com desconto: $discountedValue',
+    ({ idBooking, idUser, nameUser, idProperty, nameProperty, description, maxGuests, basePrice, startDate, endDate, guests, discountedValue }) => {
+
+      const user = new User(idUser, nameUser);
+      const property = new Property(idProperty, nameProperty, description, maxGuests, basePrice);
+      const dateRange = new DateRange(new Date(startDate), new Date(endDate));
+
+      let booking: Booking = new Booking(idBooking, user, property, dateRange, guests);
+      expect(booking.getTotalPrice()).toBe(discountedValue);
+    });
+
+  it.each`
+    idBooking   | idUser | nameUser  | idProperty | nameProperty | description              | maxGuests | basePrice | startDate1      | endDate1        | startDate2      | endDate2         | guests  | discountedValue
+    ${"101"}    | ${"1"} | ${"Ana"}  | ${"p1"}    | ${"Cabana"}  | ${"Bem aconchegante"}    | ${5}      | ${150}    | ${"2025-01-01"} | ${"2025-01-10"} | ${"2025-01-02"} | ${"2025-01-09"}  | ${5}    | ${10 * 150 * 0.9}
+  `('nao deve realizar o agendamento quando a propriedade estiver indiposnivel: $discountedValue',
+    ({ idBooking, idUser, nameUser, idProperty, nameProperty, description, maxGuests, basePrice, startDate1, endDate1, startDate2, endDate2, guests, discountedValue }) => {
+
+      const user = new User(idUser, nameUser);
+      const property = new Property(idProperty, nameProperty, description, maxGuests, basePrice);
+      const dateRange1 = new DateRange(new Date(startDate1), new Date(endDate1));
+      const dateRange2 = new DateRange(new Date(startDate2), new Date(endDate2));
+
+      let booking: Booking = new Booking(idBooking, user, property, dateRange1, guests);
+
+      expect(() => {
+        new Booking(idBooking, user, property, dateRange2, guests);
+      }).toThrow(`propriedade nao disponivel para o periodo selecioando`);
+
+    });
+
 });
